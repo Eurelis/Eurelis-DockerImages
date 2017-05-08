@@ -1,0 +1,12 @@
+version: "3"
+services:
+  lamp:
+    image: eurelis-php7
+    volumes:
+      - ./runtime/vhosts.conf.d:/etc/httpd/vhosts.conf.d
+      - ./runtime/web:/var/www/html
+      - ./runtime/mysql:/var/lib/mysql
+    ports:
+      - 9080:80
+      - 3306:3306
+    env_file: ./my_project.env

@@ -2,7 +2,7 @@ version: "3"
 services:
   lamp:
     container_name: myproject-web
-    image: eurelis-php7
+    image: eurelis/aws-ami-php7
     volumes:
       - ./runtime/vhosts.conf.d:/etc/httpd/vhosts.conf.d
       - ./runtime/mysql:/var/lib/mysql

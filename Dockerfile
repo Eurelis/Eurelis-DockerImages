@@ -95,11 +95,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 #
 # Configure MySQL
 #
-RUN mkdir /var/lib/mysql.net/ \
-&& chown mysql:mysql /var/lib/mysql.net/ \
-&& sed -i "s/socket=\/var\/lib\/mysql\/mysql.sock/socket=\/var\/lib\/mysql.net\/mysql.sock/" /etc/my.cnf \
+RUN sed -i "s/socket=\/var\/lib\/mysql\/mysql.sock/socket=\/tmp\/mysql.sock/" /etc/my.cnf \
+&& sed -i "s/pdo_mysql.default_socket=/pdo_mysql.default_socket=\/tmp\/mysql.sock/" /etc/php.ini \
 && echo '[client]' >> /etc/my.cnf \
-&& echo 'socket=/var/lib/mysql.net/mysql.sock' >> /etc/my.cnf
+&& echo 'socket=/tmp/mysql.sock' >> /etc/my.cnf
 
 RUN echo 'NETWORKING=yes' >> /etc/sysconfig/network
 COPY config/mysql_safe_start_custom.sh /usr/bin/

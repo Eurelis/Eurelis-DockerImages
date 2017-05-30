@@ -21,7 +21,8 @@ FROM amazonlinux
 #
 RUN yum install -y \
     vi \
-    htop
+    htop \
+    which
 
 #
 # Install Supervisor

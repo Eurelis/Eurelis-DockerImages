@@ -22,7 +22,8 @@ FROM amazonlinux
 RUN yum install -y \
     vi \
     htop \
-    which
+    which \
+    git
 
 #
 # Install Supervisor
@@ -109,9 +110,48 @@ RUN chmod +x /usr/bin/mysql_safe_start_custom.sh
 #RUN service mysqld start
 
 #
-# Configure Suervisor
+# Configure Supervisor
 #
 COPY config/supervisord.conf /etc/
+
+#
+# Configure xdebug
+#
+RUN yum install -y \
+    gcc \
+    php70-devel
+
+RUN cd /opt \
+&& curl -OL http://xdebug.org/files/xdebug-2.5.4.tgz \
+&& tar -xvzf xdebug-2.5.4.tgz \
+&& cd /opt/xdebug-2.5.4 \
+&& phpize \
+&& ./configure \
+&& make \
+&& make install \
+&& sed -i "/;zend.script_encoding =/a\zend_extension = /usr/lib64/php/7.0/modules/xdebug.so\n" /etc/php.ini \
+&& cd .. \
+&& rm xdebug-2.5.4.tgz \
+&& rm -R xdebug-2.5.4 \
+&& rm package.xml
+
+
+#
+# Custom env
+COPY config/.bashrc /root/
+
+
+#
+# Image history
+#
+RUN touch /etc/version \
+&& echo "Current image version : 0.04" > /etc/version \
+&& echo "---------- Version history ----------" >> /etc/version \
+&& echo "0.04 - Optimisation du shell" >> /etc/version \
+&& echo "0.03 - Ajout support Xdebug" >> /etc/version \
+&& echo "0.02 - Ajout support Git" >> /etc/version \
+&& echo "0.01 - Version initiale de l'image" >> /etc/version
+
 
 #
 # Container start

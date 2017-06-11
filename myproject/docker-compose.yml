@@ -9,6 +9,7 @@ services:
       - ./runtime/log:/var/log/httpd
       - ./runtime/scripts:/opt/scripts
       - ./runtime/web:/var/www/html
+      - ./runtime/conf/.mybashrc:/root/.mybashrc
     ports:
       - 9080:80
       - 3306:3306

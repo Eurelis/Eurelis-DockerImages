@@ -129,7 +129,12 @@ RUN cd /opt \
 && ./configure \
 && make \
 && make install \
-&& sed -i "/;zend.script_encoding =/a\zend_extension = /usr/lib64/php/7.0/modules/xdebug.so\n" /etc/php.ini \
+&& touch /etc/php-7.0.d/90-xdebug.ini \
+&& echo "[xdebug]" > /etc/php-7.0.d/90-xdebug.ini \
+&& echo "zend_extension = /usr/lib64/php/7.0/modules/xdebug.so" >> /etc/php-7.0.d/90-xdebug.ini \
+&& echo "xdebug.idekey=PHPSTORM" >> /etc/php-7.0.d/90-xdebug.ini \
+&& echo "xdebug.remote_enable=true" >> /etc/php-7.0.d/90-xdebug.ini \
+&& echo "xdebug.remote_host=dockerhost" >> /etc/php-7.0.d/90-xdebug.ini \
 && cd .. \
 && rm xdebug-2.5.4.tgz \
 && rm -R xdebug-2.5.4 \
@@ -145,12 +150,13 @@ COPY config/.bashrc /root/
 # Image history
 #
 RUN touch /etc/version \
-&& echo "Current image version : 0.04" > /etc/version \
+&& echo "Current image version : 0.5" > /etc/version \
 && echo "---------- Version history ----------" >> /etc/version \
-&& echo "0.04 - Optimisation du shell" >> /etc/version \
-&& echo "0.03 - Ajout support Xdebug" >> /etc/version \
-&& echo "0.02 - Ajout support Git" >> /etc/version \
-&& echo "0.01 - Version initiale de l'image" >> /etc/version
+&& echo "0.5 - Ajustements Xdebug" >> /etc/version \
+&& echo "0.4 - Optimisation du shell" >> /etc/version \
+&& echo "0.3 - Ajout support Xdebug" >> /etc/version \
+&& echo "0.2 - Ajout support Git" >> /etc/version \
+&& echo "0.1 - Version initiale de l'image" >> /etc/version
 
 
 #

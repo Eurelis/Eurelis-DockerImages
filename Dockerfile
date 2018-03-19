@@ -23,7 +23,9 @@ RUN yum install -y \
     vi \
     htop \
     which \
-    git
+    git \
+    patch \
+    diffutils
 
 #
 # Install Supervisor

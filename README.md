@@ -16,6 +16,7 @@ $ ./push.sh
 ````
 
 Historique des versions : **dernière version -> 0.6**
+
 | Version | Description                 |
 | :-----: | --------------------------- |
 | 0.6     | Ajout patch et diffutils    |

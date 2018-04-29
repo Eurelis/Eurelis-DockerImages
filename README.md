@@ -10,7 +10,17 @@ Lancer une image et se connecter avec un shell
 $ docker run -i -t aws-ami-php7 /bin/bash
 ````
 
-Soumettre l'image.
+Soumettre l'image
 ````bash
 $ ./push.sh
 ````
+
+Historique des versions : **dernière version -> 0.6**
+| Version | Description                 |
+| :-----: | --------------------------- |
+| 0.6     | Ajout patch et diffutils    |
+| 0.5     | Ajustements Xdebug          |
+| 0.4     | Optimisation du shell       |
+| 0.3     | Ajout support Xdebug        |
+| 0.2     | Ajout support Git           |
+| 0.1     | Version initiale de l'image |

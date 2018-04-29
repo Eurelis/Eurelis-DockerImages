@@ -152,8 +152,9 @@ COPY config/.bashrc /root/
 # Image history
 #
 RUN touch /etc/version \
-&& echo "Current image version : 0.5" > /etc/version \
+&& echo "Current image version : 0.6" > /etc/version \
 && echo "---------- Version history ----------" >> /etc/version \
+&& echo "0.6 - Ajout patch et diffutils" >> /etc/version \
 && echo "0.5 - Ajustements Xdebug" >> /etc/version \
 && echo "0.4 - Optimisation du shell" >> /etc/version \
 && echo "0.3 - Ajout support Xdebug" >> /etc/version \

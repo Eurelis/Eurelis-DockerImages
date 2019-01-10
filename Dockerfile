@@ -134,9 +134,10 @@ RUN cd /opt \
 && touch /etc/php-7.0.d/90-xdebug.ini \
 && echo "[xdebug]" > /etc/php-7.0.d/90-xdebug.ini \
 && echo "zend_extension = /usr/lib64/php/7.0/modules/xdebug.so" >> /etc/php-7.0.d/90-xdebug.ini \
-&& echo "xdebug.idekey=PHPSTORM" >> /etc/php-7.0.d/90-xdebug.ini \
 && echo "xdebug.remote_enable=true" >> /etc/php-7.0.d/90-xdebug.ini \
-&& echo "xdebug.remote_host=dockerhost" >> /etc/php-7.0.d/90-xdebug.ini \
+&& echo "xdebug.remote_autostart=true" >> /etc/php-7.0.d/90-xdebug.ini \
+&& echo "xdebug.remote_host=host.docker.internal" >> /etc/php-7.0.d/90-xdebug.ini \
+# Ajout depuis docker 18.3 : host.docker.internal pointe vers le host
 && cd .. \
 && rm xdebug-2.5.4.tgz \
 && rm -R xdebug-2.5.4 \
@@ -154,6 +155,7 @@ COPY config/.bashrc /root/
 RUN touch /etc/version \
 && echo "Current image version : 0.6" > /etc/version \
 && echo "---------- Version history ----------" >> /etc/version \
+&& echo "0.7 - Finalisation de la Configuration XDebug" >> /etc/version \
 && echo "0.6 - Ajout patch et diffutils" >> /etc/version \
 && echo "0.5 - Ajustements Xdebug" >> /etc/version \
 && echo "0.4 - Optimisation du shell" >> /etc/version \

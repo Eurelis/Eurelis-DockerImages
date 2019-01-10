@@ -157,8 +157,9 @@ COPY config/.bashrc /root/
 # Image history
 #
 RUN touch /etc/version \
-    && echo "Current image version : 2.0" > /etc/version \
+    && echo "Current image version : 2.1" > /etc/version \
     && echo "---------- Version history ----------" >> /etc/version \
+    && echo "2.1 - Set memory_limit - upload_max_filesize - post_max_size" >> /etc/version \
     && echo "2.0 - Version PHP 7.2" >> /etc/version \
     && echo "0.7 - Finalisation Xdebug" >> /etc/version \
     && echo "0.6 - Ajout patch et diffutils" >> /etc/version \

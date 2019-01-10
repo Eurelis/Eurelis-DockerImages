@@ -19,12 +19,14 @@ Ou utiliser le Makefile
 
 Historique des versions : **dernière version -> 0.7**
 
-| Version | Description                 |
-| :-----: | --------------------------- |
-|   0.7   | Finalisation Xdebug         |
-|   0.6   | Ajout patch et diffutils    |
-|   0.5   | Ajustements Xdebug          |
-|   0.4   | Optimisation du shell       |
-|   0.3   | Ajout support Xdebug        |
-|   0.2   | Ajout support Git           |
-|   0.1   | Version initiale de l'image |
+| Version | Description                                            |
+| :-----: | ------------------------------------------------------ |
+|   2.1   | Set memory_limit - upload_max_filesize - post_max_size |
+|   2.0   | Version PHP 7.2                                        |
+|   0.7   | Finalisation Xdebug                                    |
+|   0.6   | Ajout patch et diffutils                               |
+|   0.5   | Ajustements Xdebug                                     |
+|   0.4   | Optimisation du shell                                  |
+|   0.3   | Ajout support Xdebug                                   |
+|   0.2   | Ajout support Git                                      |
+|   0.1   | Version initiale de l'image                            |

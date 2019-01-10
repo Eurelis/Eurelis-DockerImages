@@ -89,6 +89,7 @@ RUN sed -i "s/#ServerName www.example.com:80/ServerName myproject.local:80/" /et
     && echo 'IncludeOptional vhosts.conf.d/*.conf' >> /etc/httpd/conf/httpd.conf
 RUN sed -i "s/;date.timezone =/date.timezone = Europe\/Paris/" /etc/php.ini
 RUN sed -i "s/memory_limit = 128M/memory_limit = 256M/" /etc/php.ini
+RUN sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 20M/" /etc/php.ini
 COPY config/info.php /var/www/html/
 #RUN chkconfig httpd on
 #RUN service httpd start

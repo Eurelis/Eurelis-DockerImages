@@ -88,6 +88,7 @@ RUN mkdir '/etc/httpd/vhosts.conf.d'
 RUN sed -i "s/#ServerName www.example.com:80/ServerName myproject.local:80/" /etc/httpd/conf/httpd.conf \
     && echo 'IncludeOptional vhosts.conf.d/*.conf' >> /etc/httpd/conf/httpd.conf
 RUN sed -i "s/;date.timezone =/date.timezone = Europe\/Paris/" /etc/php.ini
+RUN sed -i "s/memory_limit = 128M/memory_limit = 256M/" /etc/php.ini
 COPY config/info.php /var/www/html/
 #RUN chkconfig httpd on
 #RUN service httpd start
@@ -100,6 +101,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 #
 # Configure MySQL
 #
+# TODO: Mettre 256Mo min par défaut et remettre à jour le upload_max_filesize et post_max_size
 RUN sed -i "s/socket=\/var\/lib\/mysql\/mysql.sock/socket=\/tmp\/mysql.sock/" /etc/my.cnf \
     && sed -i "s/pdo_mysql.default_socket=/pdo_mysql.default_socket=\/tmp\/mysql.sock/" /etc/php.ini \
     && echo '[client]' >> /etc/my.cnf \

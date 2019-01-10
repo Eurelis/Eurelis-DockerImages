@@ -19,6 +19,9 @@ FROM amazonlinux
 #
 # Config de base
 #
+RUN yum -y update
+#RUN yum -y install yum-util
+#RUN yum -y groupinstall development
 RUN yum install -y \
     vi \
     htop \
@@ -30,9 +33,11 @@ RUN yum install -y \
 #
 # Install Supervisor
 #
-RUN yum install -y python-pip \
-&& pip-python install pip --upgrade \
-&& pip install supervisor
+RUN python --version \
+    && curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
+    && python get-pip.py \
+    && rm get-pip.py \
+    && pip install supervisor
 
 #
 # Install Apache / PHP7
@@ -71,7 +76,9 @@ RUN yum install -y \
     php70-tokenizer \
     php70-opcache \
     php70-intl \
-    php70-posix
+    php70-posix \
+    php70-devel
+
 
 #
 # Install MySQL
@@ -85,7 +92,7 @@ RUN yum install -y \
 #
 RUN mkdir '/etc/httpd/vhosts.conf.d'
 RUN sed -i "s/#ServerName www.example.com:80/ServerName myproject.local:80/" /etc/httpd/conf/httpd.conf \
-&& echo 'IncludeOptional vhosts.conf.d/*.conf' >> /etc/httpd/conf/httpd.conf
+    && echo 'IncludeOptional vhosts.conf.d/*.conf' >> /etc/httpd/conf/httpd.conf
 RUN sed -i "s/;date.timezone =/date.timezone = Europe\/Paris/" /etc/php.ini
 COPY config/info.php /var/www/html/
 #RUN chkconfig httpd on
@@ -100,9 +107,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Configure MySQL
 #
 RUN sed -i "s/socket=\/var\/lib\/mysql\/mysql.sock/socket=\/tmp\/mysql.sock/" /etc/my.cnf \
-&& sed -i "s/pdo_mysql.default_socket=/pdo_mysql.default_socket=\/tmp\/mysql.sock/" /etc/php.ini \
-&& echo '[client]' >> /etc/my.cnf \
-&& echo 'socket=/tmp/mysql.sock' >> /etc/my.cnf
+    && sed -i "s/pdo_mysql.default_socket=/pdo_mysql.default_socket=\/tmp\/mysql.sock/" /etc/php.ini \
+    && echo '[client]' >> /etc/my.cnf \
+    && echo 'socket=/tmp/mysql.sock' >> /etc/my.cnf
 
 RUN echo 'NETWORKING=yes' >> /etc/sysconfig/network
 COPY config/mysql_safe_start_custom.sh /usr/bin/
@@ -120,28 +127,27 @@ COPY config/supervisord.conf /etc/
 # Configure xdebug
 #
 RUN yum install -y \
-    gcc \
-    php70-devel
+    gcc
 
 RUN cd /opt \
-&& curl -OL http://xdebug.org/files/xdebug-2.5.4.tgz \
-&& tar -xvzf xdebug-2.5.4.tgz \
-&& cd /opt/xdebug-2.5.4 \
-&& phpize \
-&& ./configure \
-&& make \
-&& make install \
-&& touch /etc/php-7.0.d/90-xdebug.ini \
-&& echo "[xdebug]" > /etc/php-7.0.d/90-xdebug.ini \
-&& echo "zend_extension = /usr/lib64/php/7.0/modules/xdebug.so" >> /etc/php-7.0.d/90-xdebug.ini \
-&& echo "xdebug.remote_enable=true" >> /etc/php-7.0.d/90-xdebug.ini \
-&& echo "xdebug.remote_autostart=true" >> /etc/php-7.0.d/90-xdebug.ini \
-&& echo "xdebug.remote_host=host.docker.internal" >> /etc/php-7.0.d/90-xdebug.ini \
-# Ajout depuis docker 18.3 : host.docker.internal pointe vers le host
-&& cd .. \
-&& rm xdebug-2.5.4.tgz \
-&& rm -R xdebug-2.5.4 \
-&& rm package.xml
+    && curl -OL http://xdebug.org/files/xdebug-2.5.4.tgz \
+    && tar -xvzf xdebug-2.5.4.tgz \
+    && cd /opt/xdebug-2.5.4 \
+    && phpize \
+    && ./configure \
+    && make \
+    && make install \
+    && touch /etc/php-7.0.d/90-xdebug.ini \
+    && echo "[xdebug]" > /etc/php-7.0.d/90-xdebug.ini \
+    && echo "zend_extension = /usr/lib64/php/7.0/modules/xdebug.so" >> /etc/php-7.0.d/90-xdebug.ini \
+    && echo "xdebug.remote_enable=true" >> /etc/php-7.0.d/90-xdebug.ini \
+    && echo "xdebug.remote_autostart=true" >> /etc/php-7.0.d/90-xdebug.ini \
+    && echo "xdebug.remote_host=host.docker.internal" >> /etc/php-7.0.d/90-xdebug.ini \
+    # Ajout depuis docker 18.3 : host.docker.internal pointe vers le host
+    && cd .. \
+    && rm xdebug-2.5.4.tgz \
+    && rm -R xdebug-2.5.4 \
+    && rm package.xml
 
 
 #
@@ -153,15 +159,15 @@ COPY config/.bashrc /root/
 # Image history
 #
 RUN touch /etc/version \
-&& echo "Current image version : 0.6" > /etc/version \
-&& echo "---------- Version history ----------" >> /etc/version \
-&& echo "0.7 - Finalisation de la Configuration XDebug" >> /etc/version \
-&& echo "0.6 - Ajout patch et diffutils" >> /etc/version \
-&& echo "0.5 - Ajustements Xdebug" >> /etc/version \
-&& echo "0.4 - Optimisation du shell" >> /etc/version \
-&& echo "0.3 - Ajout support Xdebug" >> /etc/version \
-&& echo "0.2 - Ajout support Git" >> /etc/version \
-&& echo "0.1 - Version initiale de l'image" >> /etc/version
+    && echo "Current image version : 0.7" > /etc/version \
+    && echo "---------- Version history ----------" >> /etc/version \
+    && echo "0.7 - Finalisation Xdebug" >> /etc/version \
+    && echo "0.6 - Ajout patch et diffutils" >> /etc/version \
+    && echo "0.5 - Ajustements Xdebug" >> /etc/version \
+    && echo "0.4 - Optimisation du shell" >> /etc/version \
+    && echo "0.3 - Ajout support Xdebug" >> /etc/version \
+    && echo "0.2 - Ajout support Git" >> /etc/version \
+    && echo "0.1 - Version initiale de l'image" >> /etc/version
 
 
 #

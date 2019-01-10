@@ -14,6 +14,8 @@ Soumettre l'image
 ````bash
 $ ./push.sh
 ````
+Ou utiliser le Makefile
+
 
 Historique des versions : **dernière version -> 0.7**
 

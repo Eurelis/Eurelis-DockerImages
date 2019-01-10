@@ -45,40 +45,34 @@ RUN python --version \
 RUN yum install -y httpd24
 
 RUN yum install -y \
-    php70 \
-    php70-pdo \
-    php70-ftp \
-    php70-mcrypt \
-    php70-soap \
-    php70-gmp \
-    php70-dom \
-    php70-zip \
-    php70-mysqli \
-    php70-sqlite3 \
-    php70-bcmath \
-    php70-gd \
-    php70-odbc \
-    php70-pdo_mysql \
-    php70-pdo_sqlite \
-    php70-gettext \
-    php70-xmlreader \
-    php70-xmlwriter \
-    php70-xmlrpc \
-    php70-bz2 \
-    php70-pdo_dblib \
-    php70-curl \
-    php70-ctype \
-    php70-session \
-    php70-redis \
-    php70-zlib \
-    php70-mbstring \
-    php70-simplexml \
-    php70-tokenizer \
-    php70-opcache \
-    php70-intl \
-    php70-posix \
-    php70-devel
-
+    php72 \
+    php72-pdo \
+    php72-pdo_mysql \
+    php72-mysqli \
+    php72-ftp \
+    php72-soap \
+    php72-gmp \
+    php72-dom \
+    php72-bcmath \
+    php72-gd \
+    php72-odbc \
+    php72-gettext \
+    php72-xmlreader \
+    php72-xmlwriter \
+    php72-xmlrpc \
+    php72-bz2 \
+    php72-curl \
+    php72-ctype \
+    php72-session \
+    php72-redis \
+    php72-zlib \
+    php72-mbstring \
+    php72-simplexml \
+    php72-tokenizer \
+    php72-opcache \
+    php72-intl \
+    php72-posix \
+    php72-devel
 
 #
 # Install MySQL
@@ -130,23 +124,23 @@ RUN yum install -y \
     gcc
 
 RUN cd /opt \
-    && curl -OL http://xdebug.org/files/xdebug-2.5.4.tgz \
-    && tar -xvzf xdebug-2.5.4.tgz \
-    && cd /opt/xdebug-2.5.4 \
+    && curl -OL http://xdebug.org/files/xdebug-2.6.0.tgz \
+    && tar -xvzf xdebug-2.6.0.tgz \
+    && cd /opt/xdebug-2.6.0 \
     && phpize \
     && ./configure \
     && make \
     && make install \
-    && touch /etc/php-7.0.d/90-xdebug.ini \
-    && echo "[xdebug]" > /etc/php-7.0.d/90-xdebug.ini \
-    && echo "zend_extension = /usr/lib64/php/7.0/modules/xdebug.so" >> /etc/php-7.0.d/90-xdebug.ini \
-    && echo "xdebug.remote_enable=true" >> /etc/php-7.0.d/90-xdebug.ini \
-    && echo "xdebug.remote_autostart=true" >> /etc/php-7.0.d/90-xdebug.ini \
-    && echo "xdebug.remote_host=host.docker.internal" >> /etc/php-7.0.d/90-xdebug.ini \
+    && touch /etc/php-7.2.d/90-xdebug.ini \
+    && echo "[xdebug]" > /etc/php-7.2.d/90-xdebug.ini \
+    && echo "zend_extension = /usr/lib64/php/7.2/modules/xdebug.so" >> /etc/php-7.2.d/90-xdebug.ini \
+    && echo "xdebug.remote_enable=true" >> /etc/php-7.2.d/90-xdebug.ini \
+    && echo "xdebug.remote_autostart=true" >> /etc/php-7.2.d/90-xdebug.ini \
+    && echo "xdebug.remote_host=host.docker.internal" >> /etc/php-7.2.d/90-xdebug.ini \
     # Ajout depuis docker 18.3 : host.docker.internal pointe vers le host
     && cd .. \
-    && rm xdebug-2.5.4.tgz \
-    && rm -R xdebug-2.5.4 \
+    && rm xdebug-2.6.0.tgz \
+    && rm -R xdebug-2.6.0 \
     && rm package.xml
 
 
@@ -159,8 +153,9 @@ COPY config/.bashrc /root/
 # Image history
 #
 RUN touch /etc/version \
-    && echo "Current image version : 0.7" > /etc/version \
+    && echo "Current image version : 2.0" > /etc/version \
     && echo "---------- Version history ----------" >> /etc/version \
+    && echo "2.0 - Version PHP 7.2" >> /etc/version \
     && echo "0.7 - Finalisation Xdebug" >> /etc/version \
     && echo "0.6 - Ajout patch et diffutils" >> /etc/version \
     && echo "0.5 - Ajustements Xdebug" >> /etc/version \

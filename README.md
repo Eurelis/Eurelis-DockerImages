@@ -21,6 +21,7 @@ Historique des versions : **dernière version -> 0.7**
 
 | Version | Description                 |
 | :-----: | --------------------------- |
+|   0.8   | Ajout unzip                 |
 |   0.7   | Finalisation Xdebug         |
 |   0.6   | Ajout patch et diffutils    |
 |   0.5   | Ajustements Xdebug          |

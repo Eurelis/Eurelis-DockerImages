@@ -28,7 +28,8 @@ RUN yum install -y \
     which \
     git \
     patch \
-    diffutils
+    diffutils \
+    unzip
 
 #
 # Install Supervisor

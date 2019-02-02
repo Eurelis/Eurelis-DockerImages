@@ -17,10 +17,11 @@ $ ./push.sh
 Ou utiliser le Makefile
 
 
-Historique des versions : **dernière version -> 0.7**
+Historique des versions : **dernière version -> 2.2**
 
 | Version | Description                                            |
 | :-----: | ------------------------------------------------------ |
+|   2.2   | Ajout unzip                                            |
 |   2.1   | Set memory_limit - upload_max_filesize - post_max_size |
 |   2.0   | Version PHP 7.2                                        |
 |   0.7   | Finalisation Xdebug                                    |

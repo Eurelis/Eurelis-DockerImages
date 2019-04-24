@@ -17,10 +17,11 @@ $ ./push.sh
 Ou utiliser le Makefile
 
 
-Historique des versions : **dernière version -> 2.3**
+Historique des versions : **dernière version -> 2.4**
 
 | Version | Description                                            |
 | :-----: | ------------------------------------------------------ |
+|   2.4   | Installation ImageMagick-6.9.10                        |
 |   2.3   | Installation ImageMagick                               |
 |   2.2   | Ajout unzip                                            |
 |   2.1   | Set memory_limit - upload_max_filesize - post_max_size |

@@ -80,10 +80,19 @@ RUN yum install -y \
 #
 # ImageMagick
 #
-RUN yum install -y \
-       php7-pear \
-       ImageMagick \
-       ImageMagick-devel \
+RUN cd /opt/ \
+       && curl -O http://www.imagemagick.org/download/ImageMagick-6.9.10-42.tar.gz \
+       && gunzip ImageMagick-6.9.10-42.tar.gz \
+       && tar xvf ImageMagick-6.9.10-42.tar \
+       && cd ImageMagick-6.9.10-42 \
+       && ./configure \
+       && make \
+       && make install \
+       && ldconfig /usr/local/lib \
+       && cd .. \
+       && rm ImageMagick-6.9.10-42.tar \
+       && rm -R ImageMagick-6.9.10-42/
+RUN yum install -y php7-pear \
        && pecl7 install imagick \
        && echo "extension=imagick.so" > /etc/php.d/imagick.ini
 
@@ -170,10 +179,11 @@ COPY config/.bashrc /root/
 # Image history
 #
 RUN touch /etc/version \
-       && echo "Current image version : 2.3" > /etc/version \
+       && echo "Current image version : 2.4" > /etc/version \
        && echo "---------- Version history ----------" >> /etc/version \
-       && echo "2.3 - Installation ImageMagick" \
-       && echo "2.2 - Ajout unzip" \
+       && echo "2.4 - Installation ImageMagick-6.9.10" >> /etc/version \
+       && echo "2.3 - Installation ImageMagick" >> /etc/version \
+       && echo "2.2 - Ajout unzip" >> /etc/version \
        && echo "2.1 - Set memory_limit - upload_max_filesize - post_max_size" >> /etc/version \
        && echo "2.0 - Version PHP 7.2" >> /etc/version \
        && echo "0.7 - Finalisation Xdebug" >> /etc/version \

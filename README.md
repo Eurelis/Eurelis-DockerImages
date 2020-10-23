@@ -21,6 +21,7 @@ Historique des versions : **dernière version -> 2.4**
 
 | Version | Description                                            |
 | :-----: | ------------------------------------------------------ |
+|   3.0   | Version PHP 7.3                                        |
 |   2.4   | Installation ImageMagick-6.9.10                        |
 |   2.3   | Installation ImageMagick                               |
 |   2.2   | Ajout unzip                                            |

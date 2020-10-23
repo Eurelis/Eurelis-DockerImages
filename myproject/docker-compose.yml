@@ -2,12 +2,12 @@ version: "3"
 services:
   lamp:
     container_name: myproject-web
-    image: eurelis/aws-ami-php7
+    image: eurelis/aws-ami-php7:php73
     volumes:
       - ./runtime/vhosts.conf.d:/etc/httpd/vhosts.conf.d
       - ./runtime/mysql:/var/lib/mysql
       - ./runtime/log:/var/log/httpd
-      - ./runtime/php/99-myXdebug.ini:/etc/php-7.0.d/99-myXdebug.ini
+      - ./runtime/php/99-myXdebug.ini:/etc/php-7.3.d/99-myXdebug.ini
       - ./runtime/scripts:/opt/scripts
       - ./runtime/web:/var/www/html
       - ./runtime/conf/.mybashrc:/root/.mybashrc

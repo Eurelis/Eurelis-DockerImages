@@ -10,7 +10,7 @@ services:
       - ./runtime/php/99-myXdebug.ini:/etc/php-7.0.d/99-myXdebug.ini
       - ./runtime/scripts:/opt/scripts
       - ./runtime/web:/var/www/html
-      - ./runtime/conf/.mybashrc:/root/.mybashrc
+      - ./runtime/conf/.mybashrc:/opt/.mybashrc
     ports:
       - 9080:80
       - 3306:3306

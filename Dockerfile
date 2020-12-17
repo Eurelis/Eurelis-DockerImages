@@ -202,3 +202,7 @@ RUN touch /etc/version \
 #CMD apachectl -D FOREGROUND
 CMD ["supervisord", "--nodaemon"]
 
+# Create a user in container with the same ACL as host local user
+RUN useradd -m -u $(id -u $USER) -r $USER_NAME
+COPY config/.bashrc /home/$USER_NAME
+

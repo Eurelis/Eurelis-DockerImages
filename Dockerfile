@@ -174,6 +174,9 @@ RUN cd /opt \
 # Custom env
 COPY config/.bashrc /root/
 
+# Create a user in container with the same ACL as host local user
+RUN useradd -m -u 1000 -r local
+COPY config/.bashrc /home/local
 
 #
 # Image history
@@ -181,6 +184,7 @@ COPY config/.bashrc /root/
 RUN touch /etc/version \
        && echo "Current image version : 2.4" > /etc/version \
        && echo "---------- Version history ----------" >> /etc/version \
+       && echo "2.5 - Ajout d'un user local au container avec le même UID que l'utilisateur system" >> /etc/version \
        && echo "2.4 - Installation ImageMagick-6.9.10" >> /etc/version \
        && echo "2.3 - Installation ImageMagick" >> /etc/version \
        && echo "2.2 - Ajout unzip" >> /etc/version \
@@ -201,8 +205,3 @@ RUN touch /etc/version \
 #CMD mysqld_safe
 #CMD apachectl -D FOREGROUND
 CMD ["supervisord", "--nodaemon"]
-
-# Create a user in container with the same ACL as host local user
-RUN useradd -m -u $(id -u $USER) -r $USER_NAME
-COPY config/.bashrc /home/$USER_NAME
-

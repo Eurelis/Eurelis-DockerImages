@@ -1,5 +1,5 @@
 TAG_NAME := aws-ami-php7
-TAG_VERSION := php72
+TAG_VERSION := php73
 
 build-container:
 	docker build --tag ${TAG_NAME} .

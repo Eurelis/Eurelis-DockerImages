@@ -48,34 +48,34 @@ RUN python --version \
 RUN yum install -y httpd24
 
 RUN yum install -y \
-       php72 \
-       php72-pdo \
-       php72-pdo_mysql \
-       php72-mysqli \
-       php72-ftp \
-       php72-soap \
-       php72-gmp \
-       php72-dom \
-       php72-bcmath \
-       php72-gd \
-       php72-odbc \
-       php72-gettext \
-       php72-xmlreader \
-       php72-xmlwriter \
-       php72-xmlrpc \
-       php72-bz2 \
-       php72-curl \
-       php72-ctype \
-       php72-session \
-       php72-redis \
-       php72-zlib \
-       php72-mbstring \
-       php72-simplexml \
-       php72-tokenizer \
-       php72-opcache \
-       php72-intl \
-       php72-posix \
-       php72-devel
+       php73 \
+       php73-pdo \
+       php73-pdo_mysql \
+       php73-mysqli \
+       php73-ftp \
+       php73-soap \
+       php73-gmp \
+       php73-dom \
+       php73-bcmath \
+       php73-gd \
+       php73-odbc \
+       php73-gettext \
+       php73-xmlreader \
+       php73-xmlwriter \
+       php73-xmlrpc \
+       php73-bz2 \
+       php73-curl \
+       php73-ctype \
+       php73-session \
+       php73-redis \
+       php73-zlib \
+       php73-mbstring \
+       php73-simplexml \
+       php73-tokenizer \
+       php73-opcache \
+       php73-intl \
+       php73-posix \
+       php73-devel
 
 #
 # ImageMagick
@@ -157,12 +157,12 @@ RUN cd /opt \
        && ./configure \
        && make \
        && make install \
-       && touch /etc/php-7.2.d/90-xdebug.ini \
-       && echo "[xdebug]" > /etc/php-7.2.d/90-xdebug.ini \
-       && echo "zend_extension = /usr/lib64/php/7.2/modules/xdebug.so" >> /etc/php-7.2.d/90-xdebug.ini \
-       && echo "xdebug.remote_enable=true" >> /etc/php-7.2.d/90-xdebug.ini \
-       && echo "xdebug.remote_autostart=true" >> /etc/php-7.2.d/90-xdebug.ini \
-       && echo "xdebug.remote_host=host.docker.internal" >> /etc/php-7.2.d/90-xdebug.ini \
+       && touch /etc/php-7.3.d/90-xdebug.ini \
+       && echo "[xdebug]" > /etc/php-7.3.d/90-xdebug.ini \
+       && echo "zend_extension = /usr/lib64/php/7.3/modules/xdebug.so" >> /etc/php-7.3.d/90-xdebug.ini \
+       && echo "xdebug.remote_enable=true" >> /etc/php-7.3.d/90-xdebug.ini \
+       && echo "xdebug.remote_autostart=true" >> /etc/php-7.3.d/90-xdebug.ini \
+       && echo "xdebug.remote_host=host.docker.internal" >> /etc/php-7.3.d/90-xdebug.ini \
        # Ajout depuis docker 18.3 : host.docker.internal pointe vers le host
        && cd .. \
        && rm xdebug-2.6.0.tgz \
@@ -179,8 +179,9 @@ COPY config/.bashrc /root/
 # Image history
 #
 RUN touch /etc/version \
-       && echo "Current image version : 2.4" > /etc/version \
+       && echo "Current image version : 3.0" > /etc/version \
        && echo "---------- Version history ----------" >> /etc/version \
+       && echo "3.0 - Version PHP 7.3" >> /etc/version \
        && echo "2.4 - Installation ImageMagick-6.9.10" >> /etc/version \
        && echo "2.3 - Installation ImageMagick" >> /etc/version \
        && echo "2.2 - Ajout unzip" >> /etc/version \

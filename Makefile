@@ -6,8 +6,11 @@ build-container:
 
 push-container: build-container
 	docker login
-	docker tag ${TAG_NAME} eurelis/${TAG_NAME}:${TAG_VERSION}
+	docker tag ${TAG_NAME} eurelis/${TAG_NAME}
 	docker push eurelis/${TAG_NAME}
+	docker tag ${TAG_NAME} eurelis/${TAG_NAME}:${TAG_VERSION}
+	docker push eurelis/${TAG_NAME}:${TAG_VERSION}
 
 run-container: build-container
 	docker run -i -t aws-ami-php7 /bin/bash
+	

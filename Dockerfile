@@ -31,7 +31,8 @@ RUN yum install -y \
        diffutils \
        unzip \
        gcc \
-       pecl
+       pecl \
+       xz
 
 #
 # Install Supervisor
@@ -81,17 +82,17 @@ RUN yum install -y \
 # ImageMagick
 #
 RUN cd /opt/ \
-       && curl -O http://www.imagemagick.org/download/ImageMagick-6.9.10-42.tar.gz \
-       && gunzip ImageMagick-6.9.10-42.tar.gz \
-       && tar xvf ImageMagick-6.9.10-42.tar \
-       && cd ImageMagick-6.9.10-42 \
+       && curl -O https://download.imagemagick.org/ImageMagick/download/releases/ImageMagick-6.9.10-44.tar.xz \
+       && unxz ImageMagick-6.9.10-44.tar.xz \
+       && tar xvf ImageMagick-6.9.10-44.tar \
+       && cd ImageMagick-6.9.10-44 \
        && ./configure \
        && make \
        && make install \
        && ldconfig /usr/local/lib \
        && cd .. \
-       && rm ImageMagick-6.9.10-42.tar \
-       && rm -R ImageMagick-6.9.10-42/
+       && rm ImageMagick-6.9.10-44.tar \
+       && rm -R ImageMagick-6.9.10-44/
 RUN yum install -y php7-pear \
        && pecl7 install imagick \
        && echo "extension=imagick.so" > /etc/php.d/imagick.ini
@@ -149,14 +150,16 @@ COPY config/supervisord.conf /etc/
 RUN yum install -y \
        gcc
 
+# yum install -y php73-pecl-xdebug.x86_64
 RUN cd /opt \
-       && curl -OL http://xdebug.org/files/xdebug-2.6.0.tgz \
-       && tar -xvzf xdebug-2.6.0.tgz \
-       && cd /opt/xdebug-2.6.0 \
+       && curl -OL http://xdebug.org/files/xdebug-2.9.0.tgz \
+       && tar -xvzf xdebug-2.9.0.tgz \
+       && cd /opt/xdebug-2.9.0 \
        && phpize \
        && ./configure \
        && make \
        && make install \
+       && make test \
        && touch /etc/php-7.3.d/90-xdebug.ini \
        && echo "[xdebug]" > /etc/php-7.3.d/90-xdebug.ini \
        && echo "zend_extension = /usr/lib64/php/7.3/modules/xdebug.so" >> /etc/php-7.3.d/90-xdebug.ini \
@@ -165,10 +168,9 @@ RUN cd /opt \
        && echo "xdebug.remote_host=host.docker.internal" >> /etc/php-7.3.d/90-xdebug.ini \
        # Ajout depuis docker 18.3 : host.docker.internal pointe vers le host
        && cd .. \
-       && rm xdebug-2.6.0.tgz \
-       && rm -R xdebug-2.6.0 \
+       && rm xdebug-2.9.0.tgz \
+       && rm -R xdebug-2.9.0 \
        && rm package.xml
-
 
 #
 # Custom env

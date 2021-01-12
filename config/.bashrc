@@ -8,8 +8,8 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-if [ -f /root/.mybashrc ]; then
-  source /root/.mybashrc
+if [ -f /opt/.mybashrc ]; then
+  source /opt/.mybashrc
 fi
 
 echo "*********************************************"

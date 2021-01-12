@@ -17,10 +17,11 @@ $ ./push.sh
 Ou utiliser le Makefile
 
 
-Historique des versions : **dernière version -> 2.4**
+Historique des versions : **dernière version -> 3.1**
 
 | Version | Description                                            |
 | :-----: | ------------------------------------------------------ |
+|   3.1   | Ajout user local au container avec le même UID que l'utilisateur system  |
 |   3.0   | Version PHP 7.3                                        |
 |   2.4   | Installation ImageMagick-6.9.10                        |
 |   2.3   | Installation ImageMagick                               |

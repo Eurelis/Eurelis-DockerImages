@@ -17,21 +17,21 @@ $ ./push.sh
 Ou utiliser le Makefile
 
 
-Historique des versions : **dernière version -> 3.1**
+Historique des versions : **dernière version -> 3.0**
 
-| Version | Description                                            |
-| :-----: | ------------------------------------------------------ |
-|   3.1   | Ajout user local au container avec le même UID que l'utilisateur system  |
-|   3.0   | Version PHP 7.3                                        |
-|   2.4   | Installation ImageMagick-6.9.10                        |
-|   2.3   | Installation ImageMagick                               |
-|   2.2   | Ajout unzip                                            |
-|   2.1   | Set memory_limit - upload_max_filesize - post_max_size |
-|   2.0   | Version PHP 7.2                                        |
-|   0.7   | Finalisation Xdebug                                    |
-|   0.6   | Ajout patch et diffutils                               |
-|   0.5   | Ajustements Xdebug                                     |
-|   0.4   | Optimisation du shell                                  |
-|   0.3   | Ajout support Xdebug                                   |
-|   0.2   | Ajout support Git                                      |
-|   0.1   | Version initiale de l'image                            |
+| Version | Description                                                             |
+|:-------:|-------------------------------------------------------------------------|
+|   3.0   | Version PHP 7.3                                                         |
+|   2.5   | Ajout user local au container avec le même UID que l'utilisateur system |
+|   2.4   | Installation ImageMagick-6.9.10                                         |
+|   2.3   | Installation ImageMagick                                                |
+|   2.2   | Ajout unzip                                                             |
+|   2.1   | Set memory_limit - upload_max_filesize - post_max_size                  |
+|   2.0   | Version PHP 7.2                                                         |
+|   0.7   | Finalisation Xdebug                                                     |
+|   0.6   | Ajout patch et diffutils                                                |
+|   0.5   | Ajustements Xdebug                                                      |
+|   0.4   | Optimisation du shell                                                   |
+|   0.3   | Ajout support Xdebug                                                    |
+|   0.2   | Ajout support Git                                                       |
+|   0.1   | Version initiale de l'image                                             |

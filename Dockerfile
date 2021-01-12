@@ -182,9 +182,9 @@ COPY config/.bashrc /home/local
 # Image history
 #
 RUN touch /etc/version \
-       && echo "Current image version : 3.1" > /etc/version \
+       && echo "Current image version : 3.0" > /etc/version \
        && echo "---------- Version history ----------" >> /etc/version \
-       && echo "3.1 - Version PHP 7.3" >> /etc/version \
+       && echo "3.0 - Version PHP 7.3" >> /etc/version \
        && echo "2.5 - Ajout d'un user local au container avec le même UID que l'utilisateur system" >> /etc/version \
        && echo "2.4 - Installation ImageMagick-6.9.10" >> /etc/version \
        && echo "2.3 - Installation ImageMagick" >> /etc/version \

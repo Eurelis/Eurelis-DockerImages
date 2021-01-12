@@ -1,4 +1,4 @@
-FROM amazonlinux
+FROM amazonlinux:1
 #
 #
 # COMMAND :

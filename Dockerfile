@@ -100,9 +100,7 @@ RUN yum install -y php7-pear \
 #
 # Install MySQL
 #
-RUN yum install -y \
-       mysql \
-       mysql-server
+RUN yum install -y mysql
 
 #
 # Configure Apache/PHP
@@ -122,22 +120,6 @@ EXPOSE 80
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-#
-# Configure MySQL
-#
-# TODO: Mettre 256Mo min par défaut et remettre à jour le upload_max_filesize et post_max_size
-RUN sed -i "s/socket=\/var\/lib\/mysql\/mysql.sock/socket=\/tmp\/mysql.sock/" /etc/my.cnf \
-       && sed -i "s/pdo_mysql.default_socket=/pdo_mysql.default_socket=\/tmp\/mysql.sock/" /etc/php.ini \
-       && echo '[client]' >> /etc/my.cnf \
-       && echo 'socket=/tmp/mysql.sock' >> /etc/my.cnf
-
-RUN echo 'NETWORKING=yes' >> /etc/sysconfig/network
-COPY config/mysql_safe_start_custom.sh /usr/bin/
-RUN chmod +x /usr/bin/mysql_safe_start_custom.sh
-
-#RUN chkconfig mysqld on
-#RUN service mysqld start
 
 #
 # Configure Supervisor
@@ -184,8 +166,9 @@ COPY config/.bashrc /home/local
 # Image history
 #
 RUN touch /etc/version \
-       && echo "Current image version : 3.0" > /etc/version \
+       && echo "Current image version : 3.1" > /etc/version \
        && echo "---------- Version history ----------" >> /etc/version \
+       && echo "3.1 - No MySQL" >> /etc/version \
        && echo "3.0 - Version PHP 7.3" >> /etc/version \
        && echo "2.5 - Ajout d'un user local au container avec le même UID que l'utilisateur system" >> /etc/version \
        && echo "2.4 - Installation ImageMagick-6.9.10" >> /etc/version \

@@ -15,3 +15,18 @@ services:
       - 9080:80
       - 3306:3306
     env_file: ./my_project.env
+    links:
+      - db_projet:mysqlhost
+  db_projet:
+    image: mysql:5.5
+    container_name: db_projet
+    volumes:
+      - ./runtime/conf/.mybashrc:/root/.bashrc
+      - ./runtime/database/db_safran:/var/lib/mysql
+      - ./runtime/conf/my.cnf:/etc/my.cnf
+      - ./runtime/database/dump:/root/dump
+    environment:
+      - MYSQL_ROOT_PASSWORD=db_XXX
+      - MYSQL_DATABASE=db_XXX
+      - MYSQL_USER=us_XXX
+      - MYSQL_PASSWORD=pwd_XXX

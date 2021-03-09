@@ -32,8 +32,17 @@ RUN yum install -y \
        unzip \
        gcc \
        pecl \
-       xz
+       xz \
+       ghostscript
 
+#
+# Upgrade python
+# > alternatives --display python
+# > /etc/alternatives
+#
+RUN yum install -y python38 \
+       python38-pip \
+       && alternatives --set python /usr/bin/python3.8
 #
 # Install Supervisor
 #
@@ -81,12 +90,18 @@ RUN yum install -y \
 #
 # ImageMagick
 #
+RUN yum install -y libpng-devel \
+       libjpeg-turbo-devel
+
+#
+# ImageMagick
+#
 RUN cd /opt/ \
        && curl -O https://download.imagemagick.org/ImageMagick/download/releases/ImageMagick-6.9.10-44.tar.xz \
        && unxz ImageMagick-6.9.10-44.tar.xz \
        && tar xvf ImageMagick-6.9.10-44.tar \
        && cd ImageMagick-6.9.10-44 \
-       && ./configure \
+       && ./configure\
        && make \
        && make install \
        && ldconfig /usr/local/lib \
@@ -166,8 +181,11 @@ COPY config/.bashrc /home/local
 # Image history
 #
 RUN touch /etc/version \
-       && echo "Current image version : 3.1" > /etc/version \
+       && echo "Current image version : 3.4" > /etc/version \
        && echo "---------- Version history ----------" >> /etc/version \
+       && echo "3.4 - Add PNG & JPEG support to ImageMagick" >> /etc/version \
+       && echo "3.3 - Support for Ghostscript" >> /etc/version \
+       && echo "3.2 - Python 3.8 as default python interpreter" >> /etc/version \
        && echo "3.1 - No MySQL" >> /etc/version \
        && echo "3.0 - Version PHP 7.3" >> /etc/version \
        && echo "2.5 - Ajout d'un user local au container avec le même UID que l'utilisateur system" >> /etc/version \

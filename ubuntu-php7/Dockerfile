@@ -92,13 +92,14 @@ RUN cd /opt \
     && tar -xvzf xdebug-2.9.0.tgz \
     && cd /opt/xdebug-2.9.0 \
     && phpize \
+    && export PHP_API_VERSION=$(php -i | grep 'PHP API' | sed -e 's/PHP API => //') \
     && ./configure \
     && make \
     && make test \
     && make install \
     && touch /etc/php/$PHP_VERSION/apache2/conf.d/90-xdebug.ini \
     && echo "[xdebug]" > /etc/php/$PHP_VERSION/apache2/conf.d/90-xdebug.ini \
-    && echo "zend_extension = /usr/lib/php/20180731/xdebug.so" >> /etc/php/$PHP_VERSION/apache2/conf.d/90-xdebug.ini \
+    && echo "zend_extension = /usr/lib/php/$PHP_API_VERSION/xdebug.so" >> /etc/php/$PHP_VERSION/apache2/conf.d/90-xdebug.ini \
     && echo "xdebug.remote_enable=true" >> /etc/php/$PHP_VERSION/apache2/conf.d/90-xdebug.ini \
     && echo "xdebug.remote_autostart=true" >> /etc/php/$PHP_VERSION/apache2/conf.d/90-xdebug.ini \
     && echo "xdebug.remote_host=host.docker.internal" >> /etc/php/$PHP_VERSION/apache2/conf.d/90-xdebug.ini \

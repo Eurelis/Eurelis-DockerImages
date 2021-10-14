@@ -4,11 +4,12 @@ services:
     container_name: myproject-web
     image: eurelis/ubuntu-php7
     volumes:
+      - ./runtime/conf/default_vhost.conf:/etc/apache2/sites-available/000-default.conf
       - ./runtime/log:/var/log/httpd
       - ./runtime/php/99-myXdebug.ini:/etc/php-7.3.d/99-myXdebug.ini
       - ./runtime/scripts:/opt/scripts
       - ./runtime/web:/var/www/html
-      # - ./runtime/conf/.mybashrc:/opt/.mybashrc
+      - ./runtime/conf/.mybashrc:/opt/.mybashrc:delegated
     ports:
       - 9080:80
     env_file: ./my_project.env

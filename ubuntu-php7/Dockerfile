@@ -8,9 +8,10 @@ RUN apt-get install -y \
     curl \
     gcc \
     ghostscript \
+    git \
     unzip \
     vim \
-    zip
+    zip 
 
 #
 # Time zone

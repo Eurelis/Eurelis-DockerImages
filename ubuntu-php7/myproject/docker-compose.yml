@@ -6,7 +6,7 @@ services:
     volumes:
       - ./runtime/conf/default_vhost.conf:/etc/apache2/sites-available/000-default.conf
       - ./runtime/log:/var/log/httpd
-      - ./runtime/php/99-myXdebug.ini:/etc/php-7.3.d/99-myXdebug.ini
+      - ./runtime/php/99-myXdebug.ini:/etc/php/7.3/apache2/conf.d/99-myXdebug.ini
       - ./runtime/scripts:/opt/scripts
       - ./runtime/web:/var/www/html
       - ./runtime/conf/.mybashrc:/opt/.mybashrc:delegated

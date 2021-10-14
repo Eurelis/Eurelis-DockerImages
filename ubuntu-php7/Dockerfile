@@ -1,6 +1,11 @@
 FROM ubuntu:20.04
 
 #
+# Ok with values : 7.3 | 7.4
+#
+ARG PHP_VERSION
+
+#
 # Config de base
 #
 RUN apt-get update 
@@ -38,8 +43,6 @@ RUN apt-get install -y \
 
 RUN apt-get install -y software-properties-common \
     && add-apt-repository ppa:ondrej/php
-
-ARG PHP_VERSION=7.3
 
 RUN apt-get install -y \
     php$PHP_VERSION \
@@ -134,9 +137,9 @@ COPY config/.bashrc /home/local
 # Image history
 #
 RUN touch /etc/version \
-    && echo "Current image version : 0.1" > /etc/version \
+    && echo "Current image version : 1.0 with PHP $PHP_VERSION" > /etc/version \
     && echo "---------- Version history ----------" >> /etc/version \
-    && echo "0.1 - Version initiale de l'image" >> /etc/version
+    && echo "1.0 - Version initiale de l'image" >> /etc/version
 
 #
 # Container start

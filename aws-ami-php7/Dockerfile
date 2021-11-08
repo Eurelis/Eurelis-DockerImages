@@ -134,7 +134,8 @@ COPY config/info.php /var/www/html/
 EXPOSE 80
 
 # Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- --1 --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- --2 --install-dir=/usr/local/bin --filename=composer2
 
 #
 # Configure Supervisor
@@ -181,8 +182,9 @@ COPY config/.bashrc /home/local
 # Image history
 #
 RUN touch /etc/version \
-       && echo "Current image version : 3.4" > /etc/version \
+       && echo "Current image version : 3.5" > /etc/version \
        && echo "---------- Version history ----------" >> /etc/version \
+       && echo "3.5 - Support for composer 1 & 2" >> /etc/version \
        && echo "3.4 - Add PNG & JPEG support to ImageMagick" >> /etc/version \
        && echo "3.3 - Support for Ghostscript" >> /etc/version \
        && echo "3.2 - Python 3.8 as default python interpreter" >> /etc/version \

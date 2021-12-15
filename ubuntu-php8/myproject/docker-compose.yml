@@ -6,7 +6,7 @@ services:
     volumes:
       - ./runtime/conf/default_vhost.conf:/etc/apache2/sites-available/000-default.conf
       - ./runtime/log:/var/log/httpd
-      - ./runtime/php/99-myXdebug.ini:/etc/php/7.3/apache2/conf.d/99-myXdebug.ini
+      - ./runtime/php/99-myXdebug.ini:/etc/php/8.1/apache2/conf.d/99-myXdebug.ini
       - ./runtime/scripts:/opt/scripts
       - ./runtime/web:/var/www/html
       - ./runtime/conf/.mybashrc:/opt/.mybashrc:delegated
@@ -16,7 +16,7 @@ services:
     # links:
     #   - db_projet:mysqlhost
   # db_projet:
-  #   image: mysql:5.8
+  #   image: mysql:5.7
   #   container_name: db_projet
   #   volumes:
   #     - ./runtime/conf/.mybashrc:/root/.bashrc

@@ -54,7 +54,7 @@ RUN apt-get install -y \
     php$PHP_VERSION-gmp \
     php$PHP_VERSION-intl \
     php$PHP_VERSION-imagick \
-   # php$PHP_VERSION-json \
+   # php$PHP_VERSION-json => included in php-cli  \
     php$PHP_VERSION-mbstring \
     php$PHP_VERSION-mcrypt \
     php$PHP_VERSION-mysql \

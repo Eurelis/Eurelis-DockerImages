@@ -147,7 +147,6 @@ COPY config/.bashrc /home/local
 RUN touch /etc/version \
     && echo "Current image version : 1.1 with PHP $PHP_VERSION" > /etc/version \
     && echo "---------- Version history ----------" >> /etc/version \
-    && echo "1.2 - Activate apache rewrite" >> /etc/version \
     && echo "1.1 - Support for composer 1 & 2" >> /etc/version \
     && echo "1.0 - Version initiale de l'image" >> /etc/version
 

@@ -1,0 +1,30 @@
+version: "3"
+services:
+  lamp:
+    container_name: myproject-web
+    image: eurelis/ubuntu-php8:php81
+    volumes:
+      - ./runtime/conf/default_vhost.conf:/etc/apache2/sites-available/000-default.conf
+      - ./runtime/log:/var/log/httpd
+      - ./runtime/php/99-myXdebug.ini:/etc/php/8.1/apache2/conf.d/99-myXdebug.ini
+      - ./runtime/scripts:/opt/scripts
+      - ./runtime/web:/var/www/html
+      - ./runtime/conf/.mybashrc:/opt/.mybashrc:delegated
+    ports:
+      - 9080:80
+
+    # links:
+    #   - db_projet:mysqlhost
+  # db_projet:
+  #   image: mysql:5.7
+  #   container_name: db_projet
+  #   volumes:
+  #     - ./runtime/conf/.mybashrc:/root/.bashrc
+  #     - ./runtime/database/db_safran:/var/lib/mysql
+  #     - ./runtime/conf/my.cnf:/etc/my.cnf
+  #     - ./runtime/database/dump:/root/dump
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=db_XXX
+  #     - MYSQL_DATABASE=db_XXX
+  #     - MYSQL_USER=us_XXX
+  #     - MYSQL_PASSWORD=pwd_XXX

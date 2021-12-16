@@ -1,13 +1,10 @@
 FROM ubuntu:20.04
 
 #
-# Ok with values : 7.3 | 7.4
-#
-ARG PHP_VERSION
-
-#
 # Config de base
 #
+RUN apt-get update
+RUN apt-get upgrade -y
 RUN apt-get update
 RUN apt-get install -y \
     curl \
@@ -36,7 +33,7 @@ RUN apt-get install -y python3-pip
 RUN pip install supervisor
 
 #
-# Install Apache / PHP7
+# Install Apache / PHP8
 #
 RUN apt-get install -y \
     apache2
@@ -44,8 +41,11 @@ RUN apt-get install -y \
 RUN apt-get install -y software-properties-common \
     && add-apt-repository ppa:ondrej/php
 
+ARG PHP_VERSION=8.1
+
 RUN apt-get install -y \
     php$PHP_VERSION \
+    php$PHP_VERSION-cli \
     php$PHP_VERSION-bcmath \
     php$PHP_VERSION-bz2 \
     php$PHP_VERSION-curl \
@@ -54,7 +54,7 @@ RUN apt-get install -y \
     php$PHP_VERSION-gmp \
     php$PHP_VERSION-intl \
     php$PHP_VERSION-imagick \
-    php$PHP_VERSION-json \
+   # php$PHP_VERSION-json => included in php-cli  \
     php$PHP_VERSION-mbstring \
     php$PHP_VERSION-mcrypt \
     php$PHP_VERSION-mysql \
@@ -92,16 +92,15 @@ EXPOSE 80
 RUN apt-get install -y imagemagick
 
 # Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --1 --install-dir=/usr/local/bin --filename=composer
-RUN curl -sS https://getcomposer.org/installer | php -- --2 --install-dir=/usr/local/bin --filename=composer2
-
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN composer self-update --2
 #
 # Configure xdebug
 #
 RUN cd /opt \
-    && curl -OL http://xdebug.org/files/xdebug-2.9.0.tgz \
-    && tar -xvzf xdebug-2.9.0.tgz \
-    && cd /opt/xdebug-2.9.0 \
+    && curl -OL http://xdebug.org/files/xdebug-3.1.2.tgz \
+    && tar -xvzf xdebug-3.1.2.tgz \
+    && cd /opt/xdebug-3.1.2 \
     && phpize \
     && export PHP_API_VERSION=$(php -i | grep 'PHP API' | sed -e 's/PHP API => //') \
     && ./configure \
@@ -116,8 +115,8 @@ RUN cd /opt \
     && echo "xdebug.remote_host=host.docker.internal" >> /etc/php/$PHP_VERSION/apache2/conf.d/90-xdebug.ini \
     # Ajout depuis docker 18.3 : host.docker.internal pointe vers le host
     && cd .. \
-    && rm xdebug-2.9.0.tgz \
-    && rm -R xdebug-2.9.0 \
+    && rm xdebug-3.1.2.tgz \
+    && rm -R xdebug-3.1.2 \
     && rm package.xml
 
 #
@@ -145,10 +144,9 @@ COPY config/.bashrc /home/local
 # Image history
 #
 RUN touch /etc/version \
-    && echo "Current image version : 1.1 with PHP $PHP_VERSION" > /etc/version \
+    && echo "Current image version : 0.1" > /etc/version \
     && echo "---------- Version history ----------" >> /etc/version \
-    && echo "1.1 - Support for composer 1 & 2" >> /etc/version \
-    && echo "1.0 - Version initiale de l'image" >> /etc/version
+    && echo "0.1 - Version initiale de l'image" >> /etc/version
 
 #
 # Container start

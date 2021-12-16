@@ -1,6 +1,11 @@
 FROM ubuntu:20.04
 
 #
+# Ok with values : 7.3 | 7.4
+#
+ARG PHP_VERSION
+
+#
 # Config de base
 #
 RUN apt-get update
@@ -38,8 +43,6 @@ RUN apt-get install -y \
 
 RUN apt-get install -y software-properties-common \
     && add-apt-repository ppa:ondrej/php
-
-ARG PHP_VERSION=7.3
 
 RUN apt-get install -y \
     php$PHP_VERSION \
@@ -89,7 +92,8 @@ EXPOSE 80
 RUN apt-get install -y imagemagick
 
 # Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- --1 --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- --2 --install-dir=/usr/local/bin --filename=composer2
 
 #
 # Configure xdebug
@@ -141,10 +145,11 @@ COPY config/.bashrc /home/local
 # Image history
 #
 RUN touch /etc/version \
-    && echo "Current image version : 0.1" > /etc/version \
+    && echo "Current image version : 1.1 with PHP $PHP_VERSION" > /etc/version \
     && echo "---------- Version history ----------" >> /etc/version \
-    && echo "0.1 - Version initiale de l'image" >> /etc/version \
-    && echo "0.2 - Activation mode rewrite apache2 " >> /etc/version
+    && echo "1.2 - Activate apache rewrite" >> /etc/version \
+    && echo "1.1 - Support for composer 1 & 2" >> /etc/version \
+    && echo "1.0 - Version initiale de l'image" >> /etc/version
 
 #
 # Container start

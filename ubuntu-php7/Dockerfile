@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 #
 # Config de base
 #
-RUN apt-get update 
+RUN apt-get update
 RUN apt-get install -y \
     curl \
     gcc \
@@ -11,7 +11,7 @@ RUN apt-get install -y \
     git \
     unzip \
     vim \
-    zip 
+    zip
 
 #
 # Time zone
@@ -72,7 +72,14 @@ RUN sed -i "s/;date.timezone =/date.timezone = Europe\/Paris/" /etc/php/$PHP_VER
 RUN sed -i "s/memory_limit = 128M/memory_limit = 256M/" /etc/php/$PHP_VERSION/apache2/php.ini
 RUN sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 128M/" /etc/php/$PHP_VERSION/apache2/php.ini
 RUN sed -i "s/post_max_size = 8M/post_max_size = 128M/" /etc/php/$PHP_VERSION/apache2/php.ini
+RUN sed -i "s/;error_log = php_errors.log/error_log = \/var\/log\/apache2\/php_errors.log/" /etc/php/$PHP_VERSION/apache2/php.ini
+RUN sed -i "s/;date.timezone =/date.timezone = Europe\/Paris/" /etc/php/$PHP_VERSION/cli/php.ini
+RUN sed -i "s/;error_log = php_errors.log/error_log = \/var\/log\/apache2\/php_errors.log/" /etc/php/$PHP_VERSION/cli/php.ini
 COPY config/info.php /var/www/html/
+
+# Active apache rewrite
+RUN a2enmod rewrite
+RUN service apache2 restart
 
 EXPOSE 80
 
@@ -136,7 +143,8 @@ COPY config/.bashrc /home/local
 RUN touch /etc/version \
     && echo "Current image version : 0.1" > /etc/version \
     && echo "---------- Version history ----------" >> /etc/version \
-    && echo "0.1 - Version initiale de l'image" >> /etc/version
+    && echo "0.1 - Version initiale de l'image" >> /etc/version \
+    && echo "0.2 - Activation mode rewrite apache2 " >> /etc/version
 
 #
 # Container start

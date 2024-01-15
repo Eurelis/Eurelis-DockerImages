@@ -14,7 +14,7 @@ fi
 
 echo "*********************************************"
 echo "*"
-echo "* Image : ubuntu-php7"
+echo "* Image : ubuntu-php8.2"
 echo -n "* "
 head -n 1 /etc/version
 echo "*"

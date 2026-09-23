@@ -1,5 +1,5 @@
 # https://computingforgeeks.com/how-to-install-php-on-ubuntu-linux-system/
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 #
 # Ok with values : 8.1
@@ -10,6 +10,13 @@ ARG PHP_VERSION
 # Ok with values : 3.1.0
 #
 ARG XDEBUG_VERSION
+
+#
+# Mise a jour des certificats CA
+#
+RUN apt-get update --allow-releaseinfo-change \
+    && apt-get install -y --only-upgrade ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
 
 #
 # Config de base
@@ -39,7 +46,7 @@ RUN apt-get install -y python3-pip
 #
 # Install Supervisor
 #
-RUN pip install supervisor
+RUN pip install --break-system-packages supervisor
 
 #
 # Install Apache / PHP8
@@ -136,7 +143,8 @@ COPY config/.bashrc /root/
 #
 # Create a user in container with the same ACL as host local user
 #
-RUN useradd -m -u 1000 -r local
+RUN (id -u 1000 >/dev/null 2>&1 && userdel -r "$(id -nu 1000)" || true) \
+    && useradd -m -u 1000 -r local
 COPY config/.bashrc /home/local
 
 #

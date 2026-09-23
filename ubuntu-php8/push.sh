@@ -15,3 +15,7 @@ docker push eurelis/ubuntu-php8:php82
 docker build --platform linux/amd64 --build-arg PHP_VERSION=8.3 --build-arg XDEBUG_VERSION=3.3.2 -t ubuntu-php8:php83 .
 docker tag ubuntu-php8:php83 eurelis/ubuntu-php8:php83
 docker push eurelis/ubuntu-php8:php83
+
+docker build --platform linux/amd64 --build-arg PHP_VERSION=8.4 --build-arg XDEBUG_VERSION=3.4.7 -t ubuntu-php8:php84 .
+docker tag ubuntu-php8:php84 eurelis/ubuntu-php8:php84
+docker push eurelis/ubuntu-php8:php84
